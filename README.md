@@ -1,3 +1,5 @@
+<img width="917" height="520" alt="image" src="https://github.com/user-attachments/assets/403211b7-50fa-46d0-ad6c-b03d88b16649" />
+
 # Clone de Spotify (Fullstack) avec Spring boot 3, Angular 17, Bootstrap 5, PostgreSQL, Auth0 (2024) (Backend)
 
 Spring boot backend of the spotify clone
