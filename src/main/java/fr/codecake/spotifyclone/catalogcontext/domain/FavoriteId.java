@@ -1,45 +1,40 @@
 package fr.codecake.spotifyclone.catalogcontext.domain;
 
+import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+@Embeddable
 public class FavoriteId implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    UUID songPublicId;
+    // Id de la canción (público)
+    private UUID songPublicId;
 
-    String userEmail;
+    // Email del usuario
+    private String userEmail;
 
-    public FavoriteId() {
-    }
+    public FavoriteId() { }
 
     public FavoriteId(UUID songPublicId, String userEmail) {
         this.songPublicId = songPublicId;
         this.userEmail = userEmail;
     }
 
-    public UUID getSongPublicId() {
-        return songPublicId;
-    }
+    public UUID getSongPublicId() { return songPublicId; }
+    public void setSongPublicId(UUID songPublicId) { this.songPublicId = songPublicId; }
 
-    public void setSongPublicId(UUID songPublicId) {
-        this.songPublicId = songPublicId;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
+    public String getUserEmail() { return userEmail; }
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof FavoriteId)) return false;
         FavoriteId that = (FavoriteId) o;
-        return Objects.equals(songPublicId, that.songPublicId) && Objects.equals(userEmail, that.userEmail);
+        return Objects.equals(songPublicId, that.songPublicId)
+                && Objects.equals(userEmail, that.userEmail);
     }
 
     @Override

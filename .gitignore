@@ -18,7 +18,12 @@ target/
 *.iws
 *.iml
 *.ipr
+/.swp
+.cache/
 
+## Archivos del Sistema ##
+*.bak
+*.tmp
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

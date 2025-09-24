@@ -1,35 +1,71 @@
 package fr.codecake.spotifyclone.catalogcontext.domain;
 
-import jakarta.persistence.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
-@Table(name = "favorite_song")
-@IdClass(FavoriteId.class)
+@Table(
+        name = "favorite_song",
+        indexes = {
+                @Index(name = "idx_favorite_user_email", columnList = "user_email"),
+                @Index(name = "idx_favorite_song_public_id", columnList = "song_public_id")
+        }
+)
 public class Favorite implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    @Id
-    private UUID songPublicId;
+    @EmbeddedId
+    private FavoriteId id;
 
-    @Id
-    @Column(name = "user_email")
-    private String userEmail;
+    // Columnas mapeadas desde el embeddable (para nombres explícitos)
+    @Column(name = "song_public_id", nullable = false, insertable = false, updatable = false)
+    private java.util.UUID songPublicIdShadow;
 
-    public UUID getSongPublicId() {
-        return songPublicId;
+    @Column(name = "user_email", nullable = false, length = 255, insertable = false, updatable = false)
+    private String userEmailShadow;
+
+    public Favorite() { }
+
+    public Favorite(FavoriteId id) {
+        this.id = id;
+        syncShadows();
     }
 
-    public void setSongPublicId(UUID songPublicId) {
-        this.songPublicId = songPublicId;
+    public static Favorite of(java.util.UUID songPublicId, String userEmail) {
+        Favorite fav = new Favorite(new FavoriteId(songPublicId, userEmail));
+        return fav;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public FavoriteId getId() { return id; }
+    public void setId(FavoriteId id) {
+        this.id = id;
+        syncShadows();
     }
 
+    // Helpers convenientes
+    public java.util.UUID getSongPublicId() { return id != null ? id.getSongPublicId() : null; }
+    public String getUserEmail() { return id != null ? id.getUserEmail() : null; }
+    public void setSongPublicId(java.util.UUID songPublicId) {
+        ensureId();
+        id.setSongPublicId(songPublicId);
+        syncShadows();
+    }
     public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+        ensureId();
+        id.setUserEmail(userEmail);
+        syncShadows();
+    }
+
+    private void ensureId() {
+        if (this.id == null) this.id = new FavoriteId();
+    }
+
+    private void syncShadows() {
+        this.songPublicIdShadow = getSongPublicId();
+        this.userEmailShadow = getUserEmail();
     }
 }
