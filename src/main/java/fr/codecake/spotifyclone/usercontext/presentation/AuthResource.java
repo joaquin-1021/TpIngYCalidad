@@ -26,7 +26,7 @@ public class AuthResource {
 
     private final ClientRegistration registration;
 
-
+    //Error Resuelto
     public AuthResource(UserService userService, ClientRegistrationRepository registrations) {
         this.userService = userService;
         this.registration = registrations.findByRegistrationId("okta");
