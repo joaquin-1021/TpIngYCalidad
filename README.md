@@ -1,4 +1,4 @@
-# Clone de Spotify (Fullstack) avec Spring boot 3, Angular 17, Bootstrap 5, PostgreSQL, Auth0 (2024) (Backend)
+# Clone de Spotify (Fullstack) Spring boot, PostgreSQL, Auth0 (Backend)
 
 Spring boot backend of the spotify clone
 
@@ -111,7 +111,8 @@ Estas funciones garantizan que cada aporte externo esté bien documentado, revis
 - `develop`: integración de funcionalidades.  
 - `feature/*`: ramas para nuevas funciones.  
 - `release/*`: ramas de estabilización antes de producción.  
-- `hotfix/*`: ramas de corrección urgente en producción.  
+- `hotfix/*`: ramas de corrección urgente en producción.
+<img width="917" height="520" alt="image" src="https://github.com/user-attachments/assets/403211b7-50fa-46d0-ad6c-b03d88b16649" />
 
 ---
 
